@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Lista de Trabalhos</title>
+</head>
+<body>
+<div id="jobs-list"></div>
+<script>
+async function fetchData() {
+ try {
+ const response = await fetch('data.json'); 
+ const data = await response.json();
+
+ const jobsList = document.getElementById('jobs-list');
+
+ data.alunos.forEach(job => {
+ const jobCard = document.createElement('div');
+ jobCard.classList.add('job-card'); 
+ jobCard.innerHTML = `
+ <h2>${job.nome}</h2>
+ <p>${job.idade}</p>
+ <p>${job.nota}</p>
+ <p>Languages: ${job.disciplinas.join(', ')}</p>
+ `;
+ jobsList.appendChild(jobCard);
+ });
+ } catch (error) {
+ console.error('Erro ao buscar dados:', error);
+ }
+}
+
+fetchData();
+</script>
+</body>
+</html>
